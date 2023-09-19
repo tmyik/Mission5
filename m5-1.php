@@ -30,7 +30,7 @@
         $pdo = new PDO($dsn, $user, $password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
 
         //テーブル作成
-        $sql = "CREATE TABLE IF NOT EXISTS techbase_m5"
+        $sql = "CREATE TABLE IF NOT EXISTS base_m5"
         ." ("
         . "id INT AUTO_INCREMENT PRIMARY KEY,"
         . "name char(32),"
@@ -48,7 +48,7 @@
             $comment = htmlspecialchars($_POST["comment"], ENT_QUOTES);
             $date = date("Y-m-d H:i:s");
 
-            $sql = 'update techbase_m5 set name=:name,comment=:comment,date=:date where id=:id';
+            $sql = 'update base_m5 set name=:name,comment=:comment,date=:date where id=:id';
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':name', $name, PDO::PARAM_STR);
             $stmt->bindParam(':comment', $comment, PDO::PARAM_STR);
@@ -63,7 +63,7 @@
 
             $del_num = $_POST['del_num']; 
             $del_pass = $_POST['del_pass']; 
-            $sql = 'delete from techbase_m5 where id=:id';
+            $sql = 'delete from base_m5 where id=:id';
 	        $stmt = $pdo->prepare($sql);
 	        $stmt->bindParam(':id', $del_num, PDO::PARAM_INT);
             //$stmt->bindParam(':pass', $del_pass, PDO::PARAM_INT);
@@ -79,7 +79,7 @@
             $date = date("Y-m-d H:i:s");     //現在日時取得
             $pass = htmlspecialchars($_POST["pass"], ENT_QUOTES);
 
-            $sql = "INSERT INTO techbase_m5 (name, comment, date, pass) VALUES (:name, :comment, :date, :pass)";
+            $sql = "INSERT INTO base_m5 (name, comment, date, pass) VALUES (:name, :comment, :date, :pass)";
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':name', $name, PDO::PARAM_STR);
             $stmt->bindParam(':comment', $comment, PDO::PARAM_STR);
@@ -114,7 +114,7 @@
         }*/
 
         //データ表示
-        $sql = 'SELECT * FROM techbase_m5';
+        $sql = 'SELECT * FROM base_m5';
         $stmt = $pdo->query($sql);
         $results = $stmt->fetchAll();
         foreach ($results as $row){             //$rowの中にはテーブルのカラム名が入る
